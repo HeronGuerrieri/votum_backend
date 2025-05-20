@@ -1,0 +1,6 @@
+@VotumServer_HostAddress = http://localhost:5222
+
+GET {{VotumServer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

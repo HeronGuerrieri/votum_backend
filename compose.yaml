@@ -1,0 +1,6 @@
+﻿services:
+  votumserver:
+    image: votumserver
+    build:
+      context: .
+      dockerfile: Dockerfile
