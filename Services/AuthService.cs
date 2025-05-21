@@ -8,10 +8,12 @@ namespace VotumServer.Services
     public class AuthService
     {
         private readonly IAuthRepository _authRepository;
+        private readonly IUserRepository _userRepository;
 
-        public AuthService(IAuthRepository authRepository)
+        public AuthService(IAuthRepository authRepository, IUserRepository userRepository)
         {
             _authRepository = authRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<User> RegisterUserAsync(User user, string password)
@@ -29,6 +31,8 @@ namespace VotumServer.Services
 
             var isPasswordValid = VerifyPassword(password, user.PasswordHash);
             if (!isPasswordValid) throw new IncorrectCredentialException();
+
+            await _userRepository.UpdateLastLoginDateAsync(user.Id);
 
             return user;
         }
